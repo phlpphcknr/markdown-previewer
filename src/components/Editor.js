@@ -4,25 +4,32 @@ import styled from 'styled-components/macro'
 export default function Editor({editorInput, setEditorInput}) {
 
     return (
-        <div id="editor">
+        <EditorContainer id="editor">
             <BoxHead>Editor</BoxHead>
             <Input
+                defaultValue={PlaceholderText}
                 value={editorInput}
                 onChange={({target}) => setEditorInput(target.value)}
-                placeholder={PlaceholderText}
             />
-        </div>
+        </EditorContainer>
     )
 }
 
-const BoxHead = styled.p`
-  border: solid 4px black;
-  padding: 3px;
-  width: 100%;
+const EditorContainer = styled.div`
+  margin: 5px;
 `
 
-const Input = styled.input`
-  height: 40vh;
-  width: 100%;
+const BoxHead = styled.div`
   border: solid 4px black;
+  width: 80vw;
+  padding: 10px;
+`
+
+const Input = styled.textarea`
+  height: 40vh;
+  width: 80vw;
+  margin: -4px 0 0 0;
+  resize: none;
+  border: solid 4px black;
+  padding: 10px;
 `
