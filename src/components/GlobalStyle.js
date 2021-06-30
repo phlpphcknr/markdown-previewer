@@ -19,16 +19,12 @@ html, body, #root {
     padding: 0;
     height: 100%;
     font-family: "Arial",serif;
-    background-color: var(--secondary-color);
-    --primary-color: #125E8A;
-    --secondary-color: #88CCF1;
-    --tertiary-color: #0F0326;
-    --alt-color1: #B2ABF2;
-    --alt-color2: #B5CA8D;
-    --alt-color3: #73C2FB;
-    
+    background-color: var(--light-blue);
+    --medium-blue: #125E8A;
+    --light-blue: #88CCF1;
+    --purple: #6015A1;
+    --light-purple: #B2ABF2;
 }
- 
 `;
 
 export default GlobalStyle;

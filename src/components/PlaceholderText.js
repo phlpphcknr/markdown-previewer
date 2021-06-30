@@ -41,5 +41,6 @@ const PlaceholderText =
     "1. Use just 1s if you want!\n" +
     "1. And last but not least, let's not forget embedded images:\n" +
     "\n" +
-    "![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)\n"
+    "![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)\n";
+
 export default PlaceholderText;

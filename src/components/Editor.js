@@ -4,9 +4,10 @@ import styled from 'styled-components/macro'
 export default function Editor({editorInput, setEditorInput}) {
 
     return (
-        <EditorContainer id="editor">
+        <EditorContainer>
             <BoxHead>Editor</BoxHead>
             <Input
+                id="editor"
                 defaultValue={PlaceholderText}
                 value={editorInput}
                 onChange={({target}) => setEditorInput(target.value)}
@@ -20,6 +21,8 @@ const EditorContainer = styled.div`
 `
 
 const BoxHead = styled.div`
+  color: var(--purple);
+  background-color: var(--light-purple);
   border: solid 4px black;
   width: 80vw;
   padding: 10px;
