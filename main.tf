@@ -13,7 +13,6 @@ locals {
 }
 
 provider "google" {
-  credentials = test
   project = local.project_id
   region = local.region
   zone = "europe-west1b"
