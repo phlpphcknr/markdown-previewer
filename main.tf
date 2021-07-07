@@ -18,6 +18,10 @@ provider "google" {
   zone = "europe-west1b"
 }
 
+resource "google_project_service" "gcp_resource_manager_api" {
+  service = "cloudresourcemanager.googleapis.com"
+}
+
 # Enables the Cloud Run API
 resource "google_project_service" "run_api" {
   service = "run.googleapis.com"
