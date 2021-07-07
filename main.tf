@@ -18,6 +18,7 @@ provider "google" {
   zone = "europe-west1b"
 }
 
+# Enables the Cloud Resource Manager
 resource "google_project_service" "gcp_resource_manager_api" {
   service = "cloudresourcemanager.googleapis.com"
 }
@@ -59,14 +60,6 @@ data "google_iam_policy" "noauth" {
     ]
   }
 }
-
-# Allow unauthenticated users to invoke the service
-//resource "google_cloud_run_service_iam_member" "run_all_users" {
-//  service  = google_cloud_run_service.cloud_run_service.name
-//  location = google_cloud_run_service.cloud_run_service.location
-//  role     = "roles/run.invoker"
-//  member   = "allUsers"
-//}
 
 resource "google_cloud_run_service_iam_policy" "noauth" {
   location    = google_cloud_run_service.cloud_run_service.location
