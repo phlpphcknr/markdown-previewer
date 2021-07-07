@@ -24,14 +24,6 @@ resource "google_project_service" "run_api" {
   disable_on_destroy = true
 }
 
-
-resource "google_artifact_registry_repository" "markdown-app" {
-  project = local.project_id
-  location = local.region
-  repository_id = "markdown-previewer"
-  format = "DOCKER"
-}
-
 resource "google_cloud_run_service" "cloud_run_service" {
   name = "markdown-tf"
   project = local.project_id
@@ -40,7 +32,7 @@ resource "google_cloud_run_service" "cloud_run_service" {
   template {
     spec {
       containers {
-        image = "gcr.io/markdown-terraform/markdown-app"
+        image = "gcr.io/google-samples/hello-app:1.0"
       }
     }
   }
