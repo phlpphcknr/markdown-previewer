@@ -42,10 +42,6 @@ resource "google_cloud_run_service" "cloud_run_service" {
     spec {
       containers {
         image = "gcr.io/markdown-terraform/markdown-app"
-        env {
-          name = "google.auth.client-id"
-          value= var.googleauthclientid
-        }
       }
     }
   }
