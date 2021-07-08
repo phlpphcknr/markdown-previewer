@@ -47,7 +47,7 @@ name: 'Deployment to GCP with Terraform'
 on:
   push:
     branches:
-    - main
+    - Terraform
   pull_request:
 
 jobs:
