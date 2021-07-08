@@ -39,7 +39,8 @@ resource "google_project_service" "container_registry_api" {
 
 # Create container to store the docker image
 resource "google_container_registry" "docker_container" {
-  name = "markdown-image"
+  project = local.project_id
+  location = local.region
 }
 
 # Enables the Cloud Run API
