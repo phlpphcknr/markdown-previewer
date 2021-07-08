@@ -7,6 +7,13 @@ terraform {
   }
 }
 
+terraform {
+  backend "gcs" {
+    bucket = "markdown-terraform-terraformfiles"
+    prefix = "/state/markdown-app"
+  }
+}
+
 locals {
   project_id = "markdown-terraform"
   region = "europe-west1"
@@ -19,8 +26,20 @@ provider "google" {
 }
 
 # Enables the Cloud Resource Manager
-resource "google_project_service" "gcp_resource_manager_api" {
+resource "google_project_service" "resource_manager_api" {
   service = "cloudresourcemanager.googleapis.com"
+}
+# Enable the Container Registry
+resource "google_project_service" "container_registry_api" {
+  service = "containerregistry.googleapis.com"
+  disable_on_destroy = true
+}
+
+
+
+# Create container to store the docker image
+resource "google_container_registry" "docker_container" {
+  name = "markdown-image"
 }
 
 # Enables the Cloud Run API
