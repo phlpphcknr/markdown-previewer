@@ -1,14 +1,12 @@
-FROM node:16-alpine as build
+FROM node:14-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ./package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
 
-ENV PORT=8080
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["npm", "start"]

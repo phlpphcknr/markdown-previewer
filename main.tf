@@ -7,6 +7,13 @@ terraform {
   }
 }
 
+terraform {
+  backend "gcs" {
+    bucket = "markdown-terraform-terraformfiles"
+    prefix = "/state/markdown-app"
+  }
+}
+
 locals {
   project_id = "markdown-terraform"
   region = "europe-west1"
@@ -18,8 +25,21 @@ provider "google" {
   zone = "europe-west1b"
 }
 
-resource "google_project_service" "gcp_resource_manager_api" {
+# Enables the Cloud Resource Manager
+resource "google_project_service" "resource_manager_api" {
   service = "cloudresourcemanager.googleapis.com"
+}
+# Enable the Container Registry
+resource "google_project_service" "container_registry_api" {
+  service = "containerregistry.googleapis.com"
+  disable_on_destroy = true
+}
+
+
+
+# Create container to store the docker image
+resource "google_container_registry" "docker_container" {
+  name = "markdown-image"
 }
 
 # Enables the Cloud Run API
@@ -59,14 +79,6 @@ data "google_iam_policy" "noauth" {
     ]
   }
 }
-
-# Allow unauthenticated users to invoke the service
-//resource "google_cloud_run_service_iam_member" "run_all_users" {
-//  service  = google_cloud_run_service.cloud_run_service.name
-//  location = google_cloud_run_service.cloud_run_service.location
-//  role     = "roles/run.invoker"
-//  member   = "allUsers"
-//}
 
 resource "google_cloud_run_service_iam_policy" "noauth" {
   location    = google_cloud_run_service.cloud_run_service.location
