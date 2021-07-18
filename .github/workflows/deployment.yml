@@ -3,6 +3,7 @@ name: Deployment
 on:
   push:
     branches:
+      - GCR-Deployment
 
 env:
   PROJECT_ID: mdviewer-app
@@ -23,7 +24,7 @@ jobs:
         with:
           version: '347.0.0'
           service_account_email: ${{ secrets.GCP_EMAIL }}
-          service_acount_key: ${{ secrets.GH_SA_GCP_CREDENTIALS }}
+          service_account_key: ${{ secrets.GH_SA_GCP_CREDENTIALS }}
           export_default_credentials: true
           project_id: mdviewer-app
 
