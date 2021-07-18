@@ -21,7 +21,7 @@ const EditorContainer = styled.div`
 `
 
 const BoxHead = styled.div`
-  color: var(--purple);
+  color: "black";
   background-color: var(--light-purple);
   border: solid 4px black;
   width: 80vw;
