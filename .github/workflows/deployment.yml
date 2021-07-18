@@ -24,7 +24,7 @@ jobs:
         with:
           version: '347.0.0'
           service_acount_key: ${{ secrets.GH_SA_GCP_CREDENTIALS }}
-          project_id: ${PROJECT_ID}
+          project_id: mdviewer-app
 
       # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
       - run: |-
