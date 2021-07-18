@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     branches:
-      - main
+      - GCR-Deployment
 
 env:
   PROJECT_ID: mdviewer-app
@@ -36,4 +36,4 @@ jobs:
       - name: Publish
         run: |
           docker tag markdown-viewer-app:latest gcr.io/mdviewer-app/markdown-viewer-app:latest
-          docker push gcr.io/mdviewer-app/markdown-viewer-app:latest
+          docker push gcr.io/mdviewer-app/markdown-viewer-app
