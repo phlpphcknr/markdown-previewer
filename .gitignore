@@ -16,8 +16,10 @@
 
 #terraform
 variables.tf
-gcp-credentials.json
+*key.json
 *tfstate*
+.terraform/
+.terraform*
 
 # misc
 .DS_Store
