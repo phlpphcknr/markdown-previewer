@@ -43,4 +43,4 @@ jobs:
       # Deploy updated image
       - name: Deploy
         run: |
-          gcloud run deploy 'markdown-viewer-app:latest' --image=gcr.io/mdviewer-app/markdown-viewer-app:latest --platform=managed
+          gcloud run deploy 'mdviewer-app' --image=gcr.io/mdviewer-app/markdown-viewer-app:latest --platform=managed
