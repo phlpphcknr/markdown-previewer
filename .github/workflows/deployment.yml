@@ -29,8 +29,8 @@ jobs:
       # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
       - name: Configuration
         run: |
-          gcloud --quiet auth configure-docker
-          docker login -u _json_key -p "${{ secrets.GH_SA_GCP_CREDENTIALS }}" https://gcr.io
+          gcloud --quiet auth configure-docker mdviewer-app
+          gcloud config set project mdviewer-app
       # Build the Docker image
       - name: Build
         run: docker build -t markdown-viewer-app:latest .
