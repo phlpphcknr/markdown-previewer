@@ -1,0 +1,39 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: mdviewer-app
+  LOCAL_TAG: markdown-viewer-app:latest
+  REMOTE_TAG: gcr.io/${PROJECT_ID}/${LOCAL_TAG}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup,Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '347.0.0'
+          service_acount_key: ${{ secrets.GH_SA_GCP_CREDENTIALS }}
+          project_id: ${PROJECT_ID}
+
+      # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+          # Build the Docker image
+          - name: Build
+            run: docker build -t ${LOCAL_TAG} .
+          # Push the Docker image to Google Container Registry
+          - name: Publish
+            run: |-
+              docker tag ${LOCAL_TAG} ${REMOTE_TAG}
+              docker push ${REMOTE_TAG}
