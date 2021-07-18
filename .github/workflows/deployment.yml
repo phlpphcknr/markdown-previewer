@@ -28,13 +28,12 @@ jobs:
 
       # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
       - name: Configuration
-        run: |
-          gcloud --quiet auth configure-docker
+        run: gcloud --quiet auth configure-docker
       # Build the Docker image
       - name: Build
         run: docker build -t markdown-viewer-app:latest .
       # Push the Docker image to Google Container Registry
       - name: Publish
-        run: |
+        run: |-
         docker tag markdown-viewer-app:latest gcr.io/mdviewer-app/markdown-viewer-app:latest
         docker push gcr.io/mdviewer-app/markdown-viewer-app:latest
