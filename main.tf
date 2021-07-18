@@ -1,46 +1,44 @@
-terraform {
-  required_version = ">= 0.14"
-
-  required_providers {
-    # Cloud Run support was added on 3.3.0
-    google = ">= 3.3"
-  }
-}
 
 terraform {
   backend "gcs" {
-    bucket = "markdown-terraform-terraformfiles"
-    prefix = "/state/markdown-app"
+    bucket = "mdviewer-app-terraformfiles"
+    prefix = "/state/mdviewer-app"
   }
 }
 
 locals {
-  project_id = "markdown-terraform"
+  project_id = "mdviewer-app"
   region = "europe-west1"
 }
 
 provider "google" {
   project = local.project_id
   region = local.region
-  zone = "europe-west1b"
+  zone = "europe-west1-b"
 }
 
 # Enables the Cloud Resource Manager
 resource "google_project_service" "resource_manager_api" {
   service = "cloudresourcemanager.googleapis.com"
 }
+
+# Create the Cloud Storage for the Google Container Registry
+resource "google_storage_bucket" "cloud_run_storage_bucket" {
+  name = "${local.project_id}-cloud_run_storage_bucket"
+  project = local.project_id
+  location = local.region
+}
+
 # Enable the Container Registry
 resource "google_project_service" "container_registry_api" {
   service = "containerregistry.googleapis.com"
   disable_on_destroy = true
 }
 
-
-
 # Create container to store the docker image
 resource "google_container_registry" "docker_container" {
   project = local.project_id
-  location = local.region
+  depends_on = [google_project_service.container_registry_api]
 }
 
 # Enables the Cloud Run API
@@ -50,14 +48,14 @@ resource "google_project_service" "run_api" {
 }
 
 resource "google_cloud_run_service" "cloud_run_service" {
-  name = "markdown-tf"
+  name = "mdviewer-app"
   project = local.project_id
   location = local.region
 
   template {
     spec {
       containers {
-        image = "gcr.io/google-samples/hello-app:1.0"
+        image = "gcr.io/mdviewer-app/markdown-viewer-app:latest"
       }
     }
   }
