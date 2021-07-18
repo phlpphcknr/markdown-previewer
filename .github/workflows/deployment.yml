@@ -19,6 +19,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set Up Credentials
+        env:
+          SET_UP_CREDENTIALS: ${{ secrets.GH_SA_GCP_CREDENTIALS }}
+        run: printf '%s' "$SET_UP_CREDENTIALS" > "$GOOGLE_APPLICATION_CREDENTIALS"
+
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@master
         with:
