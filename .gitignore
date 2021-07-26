@@ -19,7 +19,6 @@ variables.tf
 *key.json
 *tfstate*
 .terraform/
-.terraform*
 
 # misc
 .DS_Store
