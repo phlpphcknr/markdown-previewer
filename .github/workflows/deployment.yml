@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     branches:
-      - GCR-Deployment
+      - main
 
 env:
   PROJECT_ID: mdviewer-app
